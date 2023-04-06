@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from app.db import schemas
-from app.models import models
+from db import schemas
+from models import models
 
 
 def create_bahan_resep(db: Session, bahan_resep: schemas.Bahan_ResepCreate):
