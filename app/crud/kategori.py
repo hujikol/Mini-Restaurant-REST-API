@@ -1,10 +1,13 @@
 from sqlalchemy.orm import Session
 
-from db import schemas
-from models import models
+from models import models, schemas
 
 
 def create_kategori(db: Session, kategori: schemas.KategoriCreate):
+    # Check if required fields are present in the request body
+    if not kategori.nama_kategori or not kategori.kategori_id:
+        return {"message": "Nama kategori and kategori ID are required"}, 400
+
     # Check if the category already exists in the database
     db_kategori = db.query(models.Kategori).filter(
         models.Kategori.nama_kat == kategori.nama_kat).first()
@@ -56,6 +59,10 @@ def get_all_kategori(db: Session, offset: int = 0, page_size: int = 100):
 
     # Get the total number of categories in the database
     total_data = db.query(models.Kategori).count()
+
+    # Check if any reseps were found
+    if total_data == 0:
+        return {"message": "No kategori found"}, 404
 
     # Return a success message with all categories and a 200 status code
     return {"message": "All kategori returned", "total_data": total_data, "data": db_kategori}, 200
