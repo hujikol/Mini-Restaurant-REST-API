@@ -29,13 +29,29 @@ def get_bahan_resep(db: Session, resep_id: int, bahan_id: int):
     
     return {"success": {"message": "Bahan for resep found"}, "data": db_bahan_resep}, 200
 
-def get_bahan_resep_by_resep_id(db: Session, resep_id: int, skip: int = 0, limit: int = 100):
+def get_bahan_by_resep_id(db: Session, resep_id: int, skip: int = 0, limit: int = 100):
     db_bahan_resep = db.query(models.Bahan_Resep).filter(models.Bahan_Resep.resep_id == resep_id).offset(skip).limit(limit).all()
     
     if not db_bahan_resep:
         return {"error": {"message": f"Bahan for resep id {resep_id} are not found"}}, 404
     
     return {"success": {"message": "All Bahan for resep id {resep_id} are found"}, "data": db_bahan_resep}, 200
+
+def get_resep_by_bahan_ids(db: Session, bahan_ids: List[int], skip: int = 0, limit: int = 100):
+    db_bahan_resep = db.query(models.Bahan_Resep).filter(models.Bahan_Resep.bahan_id.in_(bahan_ids)).offset(skip).limit(limit).all()
+    
+    if not db_bahan_resep:
+        return {"error": {"message": f"No resep found for given bahan ids"}}, 404
+    
+    resep_ids = set([bahan_resep.resep_id for bahan_resep in db_bahan_resep])
+    for bahan_id in bahan_ids[1:]:
+        db_bahan_resep = db.query(models.Bahan_Resep).filter(models.Bahan_Resep.bahan_id == bahan_id).offset(skip).limit(limit).all()
+        resep_ids.intersection_update(set([bahan_resep.resep_id for bahan_resep in db_bahan_resep]))
+    
+    if not resep_ids:
+        return {"error": {"message": f"No resep found for given bahan ids"}}, 404
+    
+    return {"success": {"message": f"All Resep for given bahan ids are found"}, "data": list(resep_ids)}, 200
 
 def get_all_bahan_resep(db: Session, skip: int = 0, limit: int = 100):
     db_bahan_resep = db.query(models.Bahan_Resep).offset(skip).limit(limit).all()
