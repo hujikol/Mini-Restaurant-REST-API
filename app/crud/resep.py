@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from models import models, schemas
+from app.models import models, schemas
 
 
 def create_resep(db: Session, resep: schemas.ResepCreate):

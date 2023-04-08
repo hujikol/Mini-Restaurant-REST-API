@@ -2,9 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 
-from db.database import get_db
-from models import schemas
-from crud.bahanResep import create_bahan_resep, delete_bahan_resep, get_all_bahan_resep, get_bahan_by_resep_id, get_bahan_resep, get_resep_by_bahan_ids, update_bahan_resep
+from app.db.database import get_db
+from app.models import schemas
+from app.crud.bahanResep import create_bahan_resep, delete_bahan_resep, get_all_bahan_resep, get_bahan_by_resep_id, get_bahan_resep, get_resep_by_bahan_ids, update_bahan_resep
 
 router = APIRouter()
 

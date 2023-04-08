@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from db.database import get_db
-from models.schemas import ResepCreate, ResepUpdate
-from crud.resep import create_resep, get_resep, get_all_resep, update_resep, delete_resep
+from app.db.database import get_db
+from app.models.schemas import ResepCreate, ResepUpdate
+from app.crud.resep import create_resep, get_resep, get_all_resep, update_resep, delete_resep
 
 router = APIRouter()
 

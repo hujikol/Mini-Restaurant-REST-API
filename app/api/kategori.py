@@ -1,10 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.crud.kategori import get_all_kategori, update_kategori
 
-from crud.kategori import create_kategori, get_kategori, get_kategori_by_name, delete_kategori
-from models import schemas
-from db.database import get_db
+from app.crud.kategori import create_kategori, get_kategori, get_kategori_by_name, get_all_kategori, update_kategori, delete_kategori
+from app.models import schemas
+from app.db.database import get_db
 
 router = APIRouter()
 
@@ -40,7 +39,7 @@ def read_kategori_by_name(nama_kat: str, db: Session = Depends(get_db)):
     return db_kategori
 
 
-@router.get("/kategori", response_model=schemas.KategoriList)
+@router.get("/kategori", response_model=schemas.Kategori)
 def read_all_kategori(offset: int = 0, page_size: int = 100, db: Session = Depends(get_db)):
     """
     Get all categories with pagination.

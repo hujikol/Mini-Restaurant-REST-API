@@ -2,10 +2,10 @@
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
-from main import app
-from db.database import get_db
-from crud.bahanResep import create_bahan_resep, get_bahan_resep, get_bahan_by_resep_id, get_resep_by_bahan_ids, get_all_bahan_resep, update_bahan_resep, delete_bahan_resep
-from models.schemas import Bahan_ResepCreate, Bahan_ResepUpdate
+from app.main import app
+from app.db.database import get_db
+from app.crud.bahanResep import create_bahan_resep, get_bahan_resep, get_bahan_by_resep_id, get_resep_by_bahan_ids, get_all_bahan_resep, update_bahan_resep, delete_bahan_resep
+from app.models.schemas import Bahan_ResepCreate, Bahan_ResepUpdate
 
 # Create a test client to make requests to the API
 client = TestClient(app)

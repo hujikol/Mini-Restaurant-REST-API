@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 
-from models import models, schemas
+from app.models import models, schemas
 
 
 def create_bahan(db: Session, bahan: schemas.BahanCreate):

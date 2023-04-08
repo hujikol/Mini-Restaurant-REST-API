@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from models import models, schemas
+from app.models import models, schemas
 
 
 def create_kategori(db: Session, kategori: schemas.KategoriCreate):
